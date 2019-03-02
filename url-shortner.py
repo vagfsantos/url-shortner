@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse
 import requests
+import os
 
 form = '''
   <form action="/" method="POST">
@@ -84,5 +85,6 @@ class AppHandler(BaseHTTPRequestHandler):
             return False
 
 
-app = HTTPServer(('', 8000), AppHandler)
+port = int(os.environ.get('PORT', 8000))
+app = HTTPServer(('', port), AppHandler)
 app.serve_forever()
