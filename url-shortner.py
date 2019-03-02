@@ -27,7 +27,7 @@ def get_url_links():
     for short_url in saved_urls:
         link = '''
           <a href={}>{}<a/>
-        '''.format("http://localhost:8000?url={}".format(short_url), short_url)
+        '''.format("/?url={}".format(short_url), short_url)
 
         new_url_array.append(link)
 
