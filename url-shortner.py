@@ -1,5 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse
+from socketserver import ThreadingMixIn
+import threading
 import requests
 import os
 
@@ -33,6 +35,9 @@ def get_url_links():
 
     return new_url_array
 
+
+class ThreadHTTPServer(ThreadingMixIn, HTTPServer):
+    pass
 
 class AppHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -86,5 +91,5 @@ class AppHandler(BaseHTTPRequestHandler):
 
 
 port = int(os.environ.get('PORT', 8000))
-app = HTTPServer(('', port), AppHandler)
+app = ThreadHTTPServer(('', port), AppHandler)
 app.serve_forever()
